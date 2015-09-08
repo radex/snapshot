@@ -20,6 +20,8 @@ module Snapshot
       end
 
       SnapshotConfig.shared_instance.devices.each do |device|
+        reinstall_app(device, nil, nil)
+          
         SnapshotConfig.shared_instance.languages.each do |language_item|
 
           if language_item.instance_of?String
@@ -31,8 +33,6 @@ module Snapshot
 
 
           prepare_simulator(device, language)
-
-          reinstall_app(device, language, locale) unless ENV["SNAPSHOT_SKIP_UNINSTALL"]
           
           begin
             errors.concat(run_tests(device, language, locale))
