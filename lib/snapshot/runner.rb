@@ -110,12 +110,12 @@ module Snapshot
 
       com("killall 'iOS Simulator'")
       com("killall 'Simulator'")
-      sleep 3
-      com("xcrun simctl boot '#{udid}'")
-      com("xcrun simctl uninstall '#{udid}' '#{app_identifier}'")
-      sleep 3
-      com("xcrun simctl install '#{udid}' #{@app_path.shellescape}")
       com("xcrun simctl shutdown booted")
+      sleep 3
+      com("open -a Simulator --args -CurrentDeviceUDID #{udid}")
+      sleep 3
+      com("xcrun simctl uninstall '#{udid}' '#{app_identifier}'")
+      com("xcrun simctl install '#{udid}' #{@app_path.shellescape}")
     end
 
     def run_tests(device, language, locale)
